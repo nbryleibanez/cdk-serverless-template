@@ -16,8 +16,8 @@ export class DynamoDbConstruct extends Construct {
   }
 
   private createDynamoDbTable(props: DynamoDbConstructProps) {
-    this.dataDb = new dynamodb.Table(this, Data.TableName, {
-      tableName: Data.TableName,
+    this.dataDb = new dynamodb.Table(this, `${props.stage}-${Data.TableName}`, {
+      tableName: `${props.stage}-${Data.TableName}`,
       partitionKey: {
         name: Data.KeyAttributes.PartitionKey.AttributeName,
         type: dynamodb.AttributeType.STRING,

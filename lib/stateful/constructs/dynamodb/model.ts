@@ -12,10 +12,6 @@ export const Data = {
   },
   NonKeyAttributes: [
     {
-      AttributeName: "type",
-      AttributeType: "S",
-    },
-    {
       AttributeName: "PK1",
       AttributeType: "S",
     },

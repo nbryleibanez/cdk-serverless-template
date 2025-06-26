@@ -15,8 +15,8 @@ export class StatefulStack extends cdk.Stack {
     super(scope, id, props);
 
     this.createDynamoDbConstruct(props);
-    this.createCognitoConstruct(props);
-    this.createS3Construct(props);
+    // this.createCognitoConstruct(props);
+    // this.createS3Construct(props);
     this.createOutputs();
   }
 
@@ -30,33 +30,33 @@ export class StatefulStack extends cdk.Stack {
     );
   }
 
-  private createCognitoConstruct(props: StatefulStackProps): void {
-    this.cognitoConstruct = new CognitoConstruct(
-      this,
-      `${props.stage}-Cognito-Construct`,
-      {
-        stage: props.stage,
-      },
-    );
-  }
-
-  private createS3Construct(props: StatefulStackProps): void {
-    this.s3Construct = new S3Construct(this, `${props.stage}-S3-Construct`, {
-      stage: props.stage,
-    });
-  }
+  // private createCognitoConstruct(props: StatefulStackProps): void {
+  //   this.cognitoConstruct = new CognitoConstruct(
+  //     this,
+  //     `${props.stage}-Cognito-Construct`,
+  //     {
+  //       stage: props.stage,
+  //     },
+  //   );
+  // }
+  //
+  // private createS3Construct(props: StatefulStackProps): void {
+  //   this.s3Construct = new S3Construct(this, `${props.stage}-S3-Construct`, {
+  //     stage: props.stage,
+  //   });
+  // }
 
   private createOutputs(): void {
-    new cdk.CfnOutput(this, "Cognito-UserPool-UserPoolId", {
-      value: this.cognitoConstruct.userPool.userPoolId,
-    });
+    // new cdk.CfnOutput(this, "Cognito-UserPool-UserPoolId", {
+    //   value: this.cognitoConstruct.userPool.userPoolId,
+    // });
 
     new cdk.CfnOutput(this, "DynamoDB-Table-TableName", {
       value: this.dynamoDbConstruct.dataDb.tableName,
     });
 
-    new cdk.CfnOutput(this, "S3-Bucket-BucketName", {
-      value: this.s3Construct.bucket.bucketName,
-    });
+    // new cdk.CfnOutput(this, "S3-Bucket-BucketName", {
+    //   value: this.s3Construct.bucket.bucketName,
+    // });
   }
 }

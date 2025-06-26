@@ -2,15 +2,16 @@ import { build } from "esbuild";
 
 build({
   entryPoints: [
-    "./src/sampleFunction/sampleFunction.ts",
+    "./src/login/login.ts",
+    "./src/createUser/createUser.ts",
     // add more as needed
   ],
-  entryNames: "[dir]/[name]/index",
+  entryNames: "[name]/index",
   outdir: "dist",
-  bundle: true,
+  bundle: false,
   platform: "node",
   target: "node22",
   sourcemap: false,
-  minify: true,
+  minify: false,
   logLevel: "info",
 }).catch(() => process.exit(1));

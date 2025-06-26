@@ -20,32 +20,9 @@ export class StatelessStack extends cdk.Stack {
 
     this.createLambdaConstruct(props);
     this.createApiGatewayConstruct(props);
-    this.createSqsConstruct(props);
-    this.createSnsConstruct(props);
-    this.createCloudWatchConstruct(props);
-  }
-
-  private createApiGatewayConstruct(props: StatelessStackProps): void {
-    this.apiGatewayConstruct = new ApiGatewayConstruct(
-      this,
-      `${props.stage}-ApiGateway-Construct`,
-      {
-        stage: props.stage,
-        sampleIntegration: this.lambdaConstruct.sampleIntegration,
-      },
-    );
-  }
-
-  private createSqsConstruct(props: StatelessStackProps): void {
-    this.sqsConstruct = new SqsConstruct(this, `${props.stage}-SQS-Construct`, {
-      stage: props.stage,
-    });
-  }
-
-  private createSnsConstruct(props: StatelessStackProps) {
-    this.snsConstruct = new SnsConstruct(this, `${props.stage}-SNS-Construct`, {
-      stage: props.stage,
-    });
+    // this.createSqsConstruct(props);
+    // this.createSnsConstruct(props);
+    // this.createCloudWatchConstruct(props);
   }
 
   private createLambdaConstruct(props: StatelessStackProps): void {
@@ -54,19 +31,44 @@ export class StatelessStack extends cdk.Stack {
       `${props.stage}-Lambda-Construct`,
       {
         stage: props.stage,
+        dynamodbTable: props.dynamodbTable
       },
     );
   }
 
-  private createCloudWatchConstruct(props: StatelessStackProps): void {
-    this.cloudWatchConstruct = new CloudwatchConstruct(
+  private createApiGatewayConstruct(props: StatelessStackProps): void {
+    this.apiGatewayConstruct = new ApiGatewayConstruct(
       this,
-      `${props.stage}-CloudWatch-Construct`,
+      `${props.stage}-ApiGateway-Construct`,
       {
         stage: props.stage,
-        sampleDlq: this.sqsConstruct.sampleDlq,
-        errorAlertTopic: this.snsConstruct.errorAlertTopic,
+        loginIntegration: this.lambdaConstruct.loginIntegration,
+        createUserIntegration: this.lambdaConstruct.createUserIntegration,
       },
     );
   }
+
+  // private createSqsConstruct(props: StatelessStackProps): void {
+  //   this.sqsConstruct = new SqsConstruct(this, `${props.stage}-SQS-Construct`, {
+  //     stage: props.stage,
+  //   });
+  // }
+  //
+  // private createSnsConstruct(props: StatelessStackProps) {
+  //   this.snsConstruct = new SnsConstruct(this, `${props.stage}-SNS-Construct`, {
+  //     stage: props.stage,
+  //   });
+  // }
+  //
+  // private createCloudWatchConstruct(props: StatelessStackProps): void {
+  //   this.cloudWatchConstruct = new CloudwatchConstruct(
+  //     this,
+  //     `${props.stage}-CloudWatch-Construct`,
+  //     {
+  //       stage: props.stage,
+  //       sampleDlq: this.sqsConstruct.sampleDlq,
+  //       errorAlertTopic: this.snsConstruct.errorAlertTopic,
+  //     },
+  //   );
+  // }
 }

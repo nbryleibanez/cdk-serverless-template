@@ -4,7 +4,8 @@ import { Construct } from "constructs";
 import { BaseConstructProps } from "../../types";
 
 interface ApiGatewayConstructProps extends BaseConstructProps {
-  sampleIntegration: integrations.HttpLambdaIntegration;
+  loginIntegration: integrations.HttpLambdaIntegration;
+  createUserIntegration: integrations.HttpLambdaIntegration;
 }
 
 export class ApiGatewayConstruct extends Construct {
@@ -25,9 +26,15 @@ export class ApiGatewayConstruct extends Construct {
 
   private createApiRoutes(props: ApiGatewayConstructProps): void {
     this.api.addRoutes({
-      path: "/sample",
-      methods: [api.HttpMethod.GET],
-      integration: props.sampleIntegration,
+      path: "/login",
+      methods: [api.HttpMethod.POST],
+      integration: props.loginIntegration,
+    });
+
+    this.api.addRoutes({
+      path: "/users",
+      methods: [api.HttpMethod.POST],
+      integration: props.createUserIntegration,
     });
   }
 }
