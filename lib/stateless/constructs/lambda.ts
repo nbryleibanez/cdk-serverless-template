@@ -48,19 +48,19 @@ export class LambdaConstruct extends Construct {
     const dynamoDbPolicy = new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       actions: [
-        'dynamodb:GetItem',
-        'dynamodb:PutItem',
-        'dynamodb:UpdateItem',
-        'dynamodb:DeleteItem',
-        'dynamodb:Query',
-        'dynamodb:Scan',
-        'dynamodb:BatchGetItem',
-        'dynamodb:BatchWriteItem'
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
       ],
       resources: [
         props.dynamodbTable.tableArn,
-        `${props.dynamodbTable.tableArn}/index/*`
-      ]
+        `${props.dynamodbTable.tableArn}/index/*`,
+      ],
     });
 
     this.createUserFunction.addToRolePolicy(dynamoDbPolicy);
@@ -77,10 +77,7 @@ export class LambdaConstruct extends Construct {
       runtime: lambda.Runtime.NODEJS_22_X,
       handler: "index.handler",
       code: lambda.Code.fromAsset(
-        path.resolve(
-          __dirname,
-          `../../../lambdaFunctions/dist/${functionName}`,
-        ),
+        path.resolve(__dirname, `../../../lambdas/dist/${functionName}`),
       ),
     });
   }

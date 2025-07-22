@@ -24,7 +24,8 @@ export class CloudFrontConstruct extends Construct {
       {
         defaultBehavior: {
           origin: new origins.S3StaticWebsiteOrigin(props.bucket),
-          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          viewerProtocolPolicy:
+            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         },
         defaultRootObject: "index.html",
       },

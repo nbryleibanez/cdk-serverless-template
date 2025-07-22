@@ -5,7 +5,7 @@
     "cdk-serverless-template": "bin/cdk-serverless-template.js"
   },
   "workspaces": [
-    "lambdaFunctions"
+    "lambdas"
   ],
   "scripts": {
     "build": "tsc",
@@ -13,6 +13,7 @@
     "test": "jest",
     "cdk": "cdk",
     "esbuild": "npm run esbuild -w lambdas",
+    "deploy:dev": "npm run cdk -- deploy dev-StatefulStack dev-StatelessStack",
     "deploy:dev:stateless": "npm run cdk -- deploy dev-StatelessStack"
   },
   "devDependencies": {

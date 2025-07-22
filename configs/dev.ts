@@ -21,8 +21,17 @@ const Stateless = {
   },
 };
 
+const Global = {
+  ...commons,
+  env: {
+    ...commons.env,
+    region: "us-east-1",
+  },
+};
+
 export default {
   commons,
   Stateful,
   Stateless,
+  Global,
 };
