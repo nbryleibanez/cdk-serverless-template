@@ -2,12 +2,12 @@ import { build } from "esbuild";
 
 build({
   entryPoints: [
-    "./src/login/login.ts",
-    "./src/createUser/createUser.ts",
+    "./src/handlers/login/login.ts",
+    "./src/handlers/createUser/createUser.ts",
     // add more as needed
   ],
   entryNames: "[name]/index",
-  outdir: "dist",
+  outdir: ".dist",
   bundle: false,
   platform: "node",
   target: "node22",

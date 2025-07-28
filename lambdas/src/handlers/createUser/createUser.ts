@@ -8,7 +8,7 @@ exports.handler = async (event: any) => {
   console.log("event", event);
 
   try {
-    const body = JSON.parse(event.body || '{}');
+    const body = JSON.parse(event.body || "{}");
     const { email, name, age } = body;
 
     // Validate required fields
@@ -16,8 +16,8 @@ exports.handler = async (event: any) => {
       return {
         statusCode: 400,
         body: JSON.stringify({
-          message: "Email and name are required fields"
-        })
+          message: "Email and name are required fields",
+        }),
       };
     }
 
@@ -26,13 +26,13 @@ exports.handler = async (event: any) => {
       email: email,
       name: name,
       age: age || null,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
 
     // Put item in DynamoDB
     const command = new PutCommand({
       TableName: "dev-Data",
-      Item: user
+      Item: user,
     });
 
     await docClient.send(command);
@@ -41,21 +41,20 @@ exports.handler = async (event: any) => {
       statusCode: 201,
       body: JSON.stringify({
         message: "User created successfully",
-        user: user
-      })
+        user: user,
+      }),
     };
 
     return response;
-
   } catch (error: any) {
     console.error("Error creating user:", error);
-    
+
     return {
       statusCode: 500,
       body: JSON.stringify({
         message: "Internal server error",
-        error: error.message
-      })
+        error: error.message,
+      }),
     };
   }
 };
